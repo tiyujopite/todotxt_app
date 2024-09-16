@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Define styles for the default root window element */
+:root {
+  /* --background-color-primary: #ebebeb; */
+  --background-color-primary: #fafafa;
+  --overlay-color: rgba(235, 235, 235, 0.7);
+  /* --background-color-secondary: #fafafa; */
+  --background-color-secondary: #ebebeb;
+  --accent-color: #cacaca;
+  --text-primary-color: #222;
+  /* --element-size: 4rem; */
+}
+/* Define styles for the root window with dark - mode preference */
+:root[data-theme='dark'] {
+  --background-color-primary: #1e1e1e;
+  --overlay-color: rgba(30, 30, 30, 0.7);
+  --background-color-secondary: #2d2d30;
+  --accent-color: #3f3f3f;
+  --text-primary-color: #ddd;
+}
+@media (max-width: 576px) {
+  [data-theme='dark'] #img-home{
+    background-image: url('/home-dark-s.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  [data-theme='light'] #img-home {
+    background-image: url('/home-light-s.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+@media (min-width: 576px) {
+  [data-theme='dark'] #img-home{
+    background-image: url('/home-dark.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  [data-theme='light'] #img-home {
+    background-image: url('/home-light.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+p {
+  color: var(--text-primary-color);
+}
+
+.bg-primary {
+  background-color: var(--background-color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--background-color-secondary);
+}
+
+.accent-color {
+  background-color: var(--accent-color);
+}
+
+.border-accent {
+  border-color: var(--accent-color);
+}
+
+.accent-color-hover:hover {
+  background-color: var(--accent-color);
+}
+
+html, body, #app , #app-child{
+  height: 100%;
+  max-height: 100%;
+}
+body {
+  background-color: var(--background-color-primary);
+  color: var(--text-primary-color);
+  /* transition: color 0.5s; */
+}
+/* div {
+  transition: background-color 0.5s !important;
+} */
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--background-color-secondary);
+}
+/* overlay style */
+.vl-background {
+  background-color: var(--background-color-primary) !important;
+}
+.vl-icon > svg {
+  stroke: var(--text-primary-color);
+}
+/* hide input number arrows */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.pretty-text {
+  text-align: left !important;
+}
