@@ -10,11 +10,43 @@
           <p class="text-2xl font-bold">todotxt.app</p>
         </div>
         <ul class="mt-12">
-          <span
-          v-for="item in menu">
+          <span v-for="item in menu">
+            <span>
+              <li
+              class="flex-col w-full justify-between items-center pt-2 pb-2 mb-2 rounded-xl px-3 duration-150 cursor-pointer accent-color-hover hover:scale-110 select-none"
+              v-if="item.type === 'group' && authenticated"
+              >
+                <div
+                class="flex items-center"
+                @click="item.open = !item.open"
+                >
+                  <i :class="item.class"></i>
+                  <translate class="ml-2">{{ item.name }}</translate>
+                </div>
+              </li>
+              <div
+              v-if="item.open"
+              class="mb-2 ml-4"
+              >
+                <ul>
+                  <span v-for="subItem in item.items">
+                    <li
+                    class="flex w-full justify-between items-center pt-2 pb-2 mb-2 rounded-xl px-3 duration-150 cursor-pointer accent-color-hover select-none"
+                    v-if="(subItem.authenticated === true && authenticated) || (subItem.authenticated === false && !authenticated) || subItem.authenticated === undefined"
+                    :class="subItem.arg === $route.path ? 'accent-color scale-110' : ''"
+                    @click="subItem.click(subItem.arg)">
+                      <div class="flex items-center">
+                        <i :class="subItem.class"></i>
+                        <translate class="ml-2">{{ subItem.name }}</translate>
+                      </div>
+                    </li>
+                  </span>
+                </ul>
+              </div>
+            </span>
             <li
-            class="flex w-full justify-between items-center pt-2 pb-2 mb-2 rounded-xl px-3 duration-150 cursor-pointer accent-color-hover hover:scale-110"
-            v-if="(item.authenticated === true && authenticated) || (item.authenticated === false && !authenticated) || item.authenticated === undefined"
+            class="flex w-full justify-between items-center pt-2 pb-2 mb-2 rounded-xl px-3 duration-150 cursor-pointer accent-color-hover hover:scale-110 select-none"
+            v-if="item.type === 'item' && ((item.authenticated === true && authenticated) || (item.authenticated === false && !authenticated) || item.authenticated === undefined)"
             :class="item.arg === $route.path ? 'accent-color scale-110' : ''"
             @click="item.click(item.arg)">
               <div class="flex items-center">
@@ -54,11 +86,43 @@
       </div>
       <div class="px-6">
         <ul class="mt-10">
-          <span
-          v-for="item in menu">
+          <span v-for="item in menu">
+            <span>
+              <li
+              class="flex-col w-full justify-between items-center pt-2 pb-2 mb-2 rounded-xl px-3 duration-150 cursor-pointer accent-color-hover hover:scale-110 select-none"
+              v-if="item.type === 'group' && authenticated"
+              >
+                <div
+                class="flex items-center"
+                @click="item.open = !item.open"
+                >
+                  <i :class="item.class"></i>
+                  <translate class="ml-2">{{ item.name }}</translate>
+                </div>
+              </li>
+              <div
+              v-if="item.open"
+              class="mb-2 ml-4"
+              >
+                <ul>
+                  <span v-for="subItem in item.items">
+                    <li
+                    class="flex w-full justify-between items-center pt-2 pb-2 mb-2 rounded-xl px-3 duration-150 cursor-pointer accent-color-hover select-none"
+                    v-if="(subItem.authenticated === true && authenticated) || (subItem.authenticated === false && !authenticated) || subItem.authenticated === undefined"
+                    :class="subItem.arg === $route.path ? 'accent-color scale-110' : ''"
+                    @click="subItem.click(subItem.arg);sidebarHandler(false)">
+                      <div class="flex items-center">
+                        <i :class="subItem.class"></i>
+                        <translate class="ml-2">{{ subItem.name }}</translate>
+                      </div>
+                    </li>
+                  </span>
+                </ul>
+              </div>
+            </span>
             <li
-            class="flex w-full justify-between items-center pt-2 pb-2 mb-2 rounded-xl px-3 duration-300 cursor-pointer accent-color-hover hover:scale-110"
-            v-if="(item.authenticated === true && authenticated) || (item.authenticated === false && !authenticated) || item.authenticated === undefined"
+            class="flex w-full justify-between items-center pt-2 pb-2 mb-2 rounded-xl px-3 duration-300 cursor-pointer accent-color-hover hover:scale-110 select-none"
+            v-if="item.type === 'item' && ((item.authenticated === true && authenticated) || (item.authenticated === false && !authenticated) || item.authenticated === undefined)"
             :class="item.arg === $route.path ? 'accent-color scale-110' : ''"
             @click="item.click(item.arg);sidebarHandler(false)">
               <div class="flex items-center">
@@ -93,6 +157,7 @@ export default {
     return {
       menu: [
         {
+          type: 'item',
           name: this.$gettext('Home'),
           class: 'bi bi-house-door-fill',
           click: this.$router.push,
@@ -100,6 +165,7 @@ export default {
           authenticated: undefined,
         },
         {
+          type: 'item',
           name: this.$gettext('Tasks'),
           class: 'bi bi-list-task',
           click: this.$router.push,
@@ -107,20 +173,7 @@ export default {
           authenticated: true,
         },
         {
-          name: this.$gettext('Export'),
-          class: 'bi bi-file-earmark-arrow-down-fill',
-          click: this.$router.push,
-          arg: '/export',
-          authenticated: true,
-        },
-        {
-          name: this.$gettext('Import'),
-          class: 'bi bi-file-earmark-arrow-up-fill',
-          click: this.$router.push,
-          arg: '/import',
-          authenticated: true,
-        },
-        {
+          type: 'item',
           name: this.$gettext('Login'),
           class: 'bi bi-person-fill',
           click: this.$router.push,
@@ -128,6 +181,7 @@ export default {
           authenticated: false,
         },
         {
+          type: 'item',
           name: this.$gettext('Register'),
           class: 'bi bi-person-fill-add',
           click: this.$router.push,
@@ -135,19 +189,45 @@ export default {
           authenticated: false,
         },
         {
-          name: this.$gettext('Logout'),
-          class: 'bi bi-door-closed-fill',
-          click: this.logout,
-          arg: null,
-          authenticated: true,
+          type: 'group',
+          name: this.$gettext('More actions'),
+          class: 'bi bi-caret-down-fill',
+          items: [
+            {
+              type: 'item',
+              name: this.$gettext('Export'),
+              class: 'bi bi-file-earmark-arrow-down-fill',
+              click: this.$router.push,
+              arg: '/export',
+              authenticated: true,
+            },
+            {
+              type: 'item',
+              name: this.$gettext('Import'),
+              class: 'bi bi-file-earmark-arrow-up-fill',
+              click: this.$router.push,
+              arg: '/import',
+              authenticated: true,
+            },
+            {
+              type: 'item',
+              name: this.$gettext('Change password'),
+              class: 'bi bi-key-fill',
+              click: this.$router.push,
+              arg: '/send-email-change-password',
+              authenticated: true,
+            },
+            {
+              type: 'item',
+              name: this.$gettext('Logout'),
+              class: 'bi bi-door-closed-fill',
+              click: this.logout,
+              arg: null,
+              authenticated: true,
+            },
+          ]
         },
-        {
-          name: this.$gettext('Change password'),
-          class: 'bi bi-key-fill',
-          click: this.$router.push,
-          arg: '/send-email-change-password',
-          authenticated: true,
-        },
+
       ],
       overlay: false,
       authenticated: document.cookie.includes('authenticated=true')

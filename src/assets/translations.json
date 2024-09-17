@@ -1,5 +1,6 @@
 {
     "en": {
+        "More actions": "More actions",
         "Contribute": "Contribute",
         "Source code": "Source code",
         "Operating": "Operating",
@@ -72,6 +73,7 @@
         "Autocomplete projects in new tasks with filtered projects.": "Autocomplete projects in new tasks with filtered projects."
     },
     "es": {
+        "More actions": "Más acciones",
         "Source code": "Código fuente",
         "Contribute": "Contribuir",
         "Operating": "Funcionamiento",
@@ -146,6 +148,7 @@
         "Autocomplete projects in new tasks with filtered projects.": "Autocompletar proyectos en nuevas tareas con los proyectos filtrados."
     },
     "fr": {
+        "More actions": "Plus d'actions",
         "Source code": "Code source",
         "Contribute": "Contribuer",
         "Operating": "Fonctionnement",
