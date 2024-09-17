@@ -190,7 +190,7 @@ export default {
         },
         {
           type: 'group',
-          name: this.$gettext('More actions'),
+          name: this.$gettext('Actions'),
           class: 'bi bi-caret-down-fill',
           items: [
             {
