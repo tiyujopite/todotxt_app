@@ -25,7 +25,7 @@
       <div class="grid gap-6 mt-8 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <div class="px-6 py-4 transition-colors duration-200 transform rounded-xl bg-secondary accent-color-hover">
           <p class="text-2xl font-semibold"><translate>Features</translate></p>
-          <div class="mt-8 space-y-4">
+          <div class="mt-6 space-y-4">
             <div class="flex items-center">
               <i class="bi bi-arrow-down-up"></i>
               <span class="mx-4"><translate>Drag-and-drop ordering</translate></span>
@@ -41,18 +41,12 @@
           </div>
         </div>
         <div class="px-6 py-4 transition-colors duration-200 transform rounded-xl bg-secondary accent-color-hover">
-          <p class="text-2xl font-semibold"><translate>Emails</translate></p>
-          <p class="mt-4"><translate>txt_email_notifications</translate></p>
-          <div class="mt-8 space-y-4">
+          <p class="text-2xl font-semibold"><translate>Operating</translate></p>
+          <div class="mt-6 space-y-4">
             <div class="flex items-center">
               <i class="bi bi-arrow-clockwise"></i>
-              <span class="mx-4"><translate>Weekly backups</translate></span>
+              <span class="mx-4"><translate>Weekly backups via email</translate></span>
             </div>
-          </div>
-        </div>
-        <div class="px-6 py-4 transition-colors duration-200 transform rounded-xl bg-secondary accent-color-hover">
-          <p class="text-2xl font-semibold"><translate>Operating</translate></p>
-          <div class="mt-8 space-y-4">
             <div class="flex items-center">
               <i class="bi bi-trash"></i>
               <span class="mx-4"><translate>Weekly cleaning of completed tasks</translate></span>
@@ -60,9 +54,18 @@
           </div>
         </div>
         <div class="px-6 py-4 transition-colors duration-200 transform rounded-xl bg-secondary accent-color-hover">
+          <p class="text-2xl font-semibold"><translate>Contribute</translate></p>
+          <div class="mt-6 space-y-4">
+            <div class="flex items-center">
+              <i class="bi bi-github"></i>
+              <span class="mx-4"><a href="https://github.com/tiyujopite/todotxt_app" target="_blank" class="text-green-600"><translate>Source code</translate></a></span>
+            </div>
+          </div>
+        </div>
+        <div class="px-6 py-4 transition-colors duration-200 transform rounded-xl bg-secondary accent-color-hover">
           <p class="text-2xl font-semibold"><translate>Our cookies</translate></p>
-          <p class="mt-4"><translate>Needed to works correctly.</translate></p>
-          <div class="mt-8 space-y-4">
+          <p class="mt-0"><translate>Needed to works correctly.</translate></p>
+          <div class="mt-6 space-y-4">
             <div class="flex items-center">
               <i class="bi bi-lock"></i>
               <span class="mx-4"><code>authenticated</code></span>
