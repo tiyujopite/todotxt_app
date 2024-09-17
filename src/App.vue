@@ -166,7 +166,7 @@ export default {
       menu: [
         {
           type: 'item',
-          name: this.$gettext('Home'),
+          name: 'Home',
           class: 'bi bi-house-door-fill',
           click: this.$router.push,
           arg: '/',
@@ -182,7 +182,7 @@ export default {
         },
         {
           type: 'item',
-          name: this.$gettext('Tasks'),
+          name: 'Tasks',
           class: 'bi bi-list-task',
           click: this.$router.push,
           arg: '/tasks',
@@ -190,7 +190,7 @@ export default {
         },
         {
           type: 'item',
-          name: this.$gettext('Login'),
+          name: 'Login',
           class: 'bi bi-person-fill',
           click: this.$router.push,
           arg: '/login',
@@ -198,7 +198,7 @@ export default {
         },
         {
           type: 'item',
-          name: this.$gettext('Register'),
+          name: 'Register',
           class: 'bi bi-person-fill-add',
           click: this.$router.push,
           arg: '/register',
@@ -206,12 +206,12 @@ export default {
         },
         {
           type: 'group',
-          name: this.$gettext('Actions'),
+          name: 'Actions',
           class: 'bi bi-caret-down-fill',
           items: [
             {
               type: 'item',
-              name: this.$gettext('Export'),
+              name: 'Export',
               class: 'bi bi-file-earmark-arrow-down-fill',
               click: this.$router.push,
               arg: '/export',
@@ -219,7 +219,7 @@ export default {
             },
             {
               type: 'item',
-              name: this.$gettext('Import'),
+              name: 'Import',
               class: 'bi bi-file-earmark-arrow-up-fill',
               click: this.$router.push,
               arg: '/import',
@@ -227,7 +227,7 @@ export default {
             },
             {
               type: 'item',
-              name: this.$gettext('Change password'),
+              name: 'Change password',
               class: 'bi bi-key-fill',
               click: this.$router.push,
               arg: '/send-email-change-password',
@@ -235,7 +235,7 @@ export default {
             },
             {
               type: 'item',
-              name: this.$gettext('Logout'),
+              name: 'Logout',
               class: 'bi bi-door-closed-fill',
               click: this.logout,
               arg: null,

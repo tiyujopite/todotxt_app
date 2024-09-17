@@ -1,5 +1,6 @@
 {
     "en": {
+        "Changelog": "Changelog",
         "Actions": "Actions",
         "Contribute": "Contribute",
         "Source code": "Source code",
@@ -73,6 +74,7 @@
         "Autocomplete projects in new tasks with filtered projects.": "Autocomplete projects in new tasks with filtered projects."
     },
     "es": {
+        "Changelog": "Changelog",
         "Actions": "Acciones",
         "Source code": "Código fuente",
         "Contribute": "Contribuir",
@@ -148,6 +150,7 @@
         "Autocomplete projects in new tasks with filtered projects.": "Autocompletar proyectos en nuevas tareas con los proyectos filtrados."
     },
     "fr": {
+        "Changelog": "Changelog",
         "Actions": "Actions",
         "Source code": "Code source",
         "Contribute": "Contribuer",
