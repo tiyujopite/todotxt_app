@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="container mt-8 px-3 md:px-6 py-8 mx-auto">
-      <div class="w-full rounded-xl p-4 markdown" v-html="changelog"></div>
+    <div class="container mt-8 px-3 py-8">
+      <div class="w-full p-4 markdown" v-html="changelog"></div>
     </div>
   </section>
 </template>
