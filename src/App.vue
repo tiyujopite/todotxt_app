@@ -57,6 +57,9 @@
           </span>
           <ThemeButton/>
           <LangSwitcher/>
+          <div class="flex justify-center">
+            <code class="font-semibold">v{{ version }}</code>
+          </div>
         </ul>
       </div>
     </div>
@@ -133,6 +136,9 @@
           </span>
           <ThemeButton/>
           <LangSwitcher/>
+          <div class="flex justify-center mb-2">
+            <code class="font-semibold">v{{ version }}</code>
+          </div>
         </ul>
       </div>
     </div>
@@ -146,6 +152,7 @@ import { RouterView } from 'vue-router'
 import { Http } from './http.js'
 import LangSwitcher from './components/LangSwitcher.vue'
 import ThemeButton from './components/ThemeButton.vue'
+import Package from '/package.json'
 
 export default {
   inject: [],
@@ -155,6 +162,7 @@ export default {
   },
   data() {
     return {
+      version: Package.version,
       menu: [
         {
           type: 'item',
@@ -162,6 +170,14 @@ export default {
           class: 'bi bi-house-door-fill',
           click: this.$router.push,
           arg: '/',
+          authenticated: undefined,
+        },
+        {
+          type: 'item',
+          name: 'Changelog',
+          class: 'bi bi-clock-history',
+          click: this.$router.push,
+          arg: '/changelog',
           authenticated: undefined,
         },
         {

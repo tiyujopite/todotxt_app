@@ -8,6 +8,7 @@ import Import from '../components/Import.vue'
 import ConfirmEmail from '../components/ConfirmEmail.vue'
 import SendChangePassword from '../components/SendChangePassword.vue'
 import ChangePassword from '../components/ChangePassword.vue'
+import Changelog from '../components/Changelog.vue'
 
 function isAuthenticated() {return document.cookie.includes('authenticated=true')}
 
@@ -80,6 +81,11 @@ const router = createRouter({
       name: 'import',
       component: Import,
       beforeEnter: authRequired
+    },
+    {
+      path: '/changelog',
+      name: 'changelog',
+      component: Changelog,
     },
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ]

@@ -77,11 +77,8 @@ html, body, #app , #app-child{
 body {
   background-color: var(--background-color-primary);
   color: var(--text-primary-color);
-  /* transition: color 0.5s; */
 }
-/* div {
-  transition: background-color 0.5s !important;
-} */
+
 ::-webkit-scrollbar {
   width: 12px;
   background-color: transparent;
@@ -112,4 +109,25 @@ input[type=number] {
 
 .pretty-text {
   text-align: left !important;
+}
+
+.markdown {
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    margin-top: 2rem;
+    text-decoration: underline;
+  }
+  h3 {
+    font-size: 1rem;
+    font-weight: bolder;
+  }
+  ul {
+    list-style-type: disc;
+    padding-left: 2rem;
+  }
 }
