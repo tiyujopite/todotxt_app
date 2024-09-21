@@ -1,5 +1,5 @@
 <template>
-  <li class="flex w-full justify-between items-center mb-2 rounded-xl">
+  <li class="flex w-full justify-between items-center mb-2 rounded-xl select-none">
     <li class="flex w-full justify-center items-center pt-2 pb-2 rounded-xl px-3 duration-150 cursor-pointer accent-color-hover hover:scale-110"
     v-for="lang in supportedLanguages"
     @click="setLang(lang.code)" :title="lang.name">

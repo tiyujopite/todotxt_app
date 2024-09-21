@@ -5,7 +5,7 @@
     style="min-height: 716px"
     class="w-64 absolute sm:relative md:h-full flex-col justify-between hidden sm:flex">
       <div class="px-5">
-        <div class="h-16 w-full flex flex-col text-center justify-center">
+        <div class="h-16 w-full flex flex-col text-center justify-center select-none">
           <img src="/icon.svg" class="logo w-20 h-20 self-center mt-10" alt="icon"/>
           <p class="text-2xl font-bold">todotxt.app</p>
         </div>
@@ -82,7 +82,7 @@
         <i class="bi bi-x-lg"></i>
       </button>
       <div class="px-5">
-        <div class="h-16 w-full flex flex-col text-center justify-center">
+        <div class="h-16 w-full flex flex-col text-center justify-center select-none">
           <img src="/icon.svg" class="logo w-20 h-20 self-center mt-10" alt="icon"/>
           <p class="text-2xl font-bold">todotxt.app</p>
         </div>

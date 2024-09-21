@@ -1,10 +1,15 @@
 # Changelog
 
-## Unreleased
+## 1.0.2 (2024-09-21)
 
 ### Features/Changes
 
+- The done task now is pushed to end.
+
 ### Bug Fixes
+
+- Do not allow to select ui elements.
+- Fix 401 and 403 responses (backend).
 
 ## 1.0.1 (2024-09-17)
 

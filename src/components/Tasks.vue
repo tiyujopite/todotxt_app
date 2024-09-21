@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div id="toolbar" class="w-full flex">
+    <div id="toolbar" class="w-full flex select-none">
       <button
       id="filters_button"
       class="py-1 px-2 mr-1 md:mr-2 ml-8 md:ml-0 rounded-xl bg-green-600 font-semibold mt-2 flex items-center"
@@ -61,7 +61,7 @@
       </button>
     </div>
     <div id="filters"
-    class="absolute z-10 bg-primary shadow-lg px-2 pt-2 rounded-xl border border-accent mt-4 hidden">
+    class="absolute z-10 bg-primary shadow-lg px-2 pt-2 rounded-xl border border-accent mt-4 select-none hidden">
       <div v-for="project in projects">
         <button
         class="py-1 px-2 rounded-xl border-2 border-red-600 text-red-600 font-semibold flex items-center text-center align-middle gap-2 mb-2 duration-150 hover:scale-110 focus:scale-110"
@@ -103,7 +103,7 @@
       </div>
     </div>
     <div id="settings"
-    class="absolute right-0 z-10 bg-primary shadow-lg px-2 pt-2 rounded-xl border border-accent mt-4 mr-2 hidden">
+    class="absolute right-0 z-10 bg-primary shadow-lg px-2 pt-2 rounded-xl border border-accent mt-4 mr-2 select-none hidden">
       <div class="flex items-center mb-2">
         <input
         id="show-done"
@@ -142,7 +142,7 @@
         id="task_new"
         >
           <td
-          class="bg-secondary pl-2 rounded-l-xl w-full">
+          class="bg-secondary pl-2 rounded-l-xl w-full select-none">
             <input
             id="task_input_new"
             type="text"
@@ -241,7 +241,7 @@
               <i class="bi bi-floppy-fill"></i>
             </button>
           </td>
-          <td class="px-0 md:px-4 w-0 bg-secondary rounded-r-xl whitespace-nowrap">
+          <td class="px-0 md:px-4 w-0 bg-secondary rounded-r-xl whitespace-nowrap select-none">
             <small class="hidden md:table-cell">
               <relative-time :datetime="task.createDate" tense="past" precision="day"></relative-time>
             </small>
@@ -275,7 +275,7 @@
             :key="'task_p_' + task.id"
             v-html="task.prettyText"></p>
           </td>
-          <td class="px-0 md:px-4 w-0 bg-secondary rounded-r-xl whitespace-nowrap">
+          <td class="px-0 md:px-4 w-0 bg-secondary rounded-r-xl whitespace-nowrap select-none">
             <div class="flex flex-col">
               <small class="hidden md:table-cell">
                 <translate>Created</translate> <relative-time :datetime="task.createDate" tense="past" precision="day"></relative-time>
@@ -392,7 +392,7 @@ export default {
             let data = await response.json()
             task.doneDate = data.doneDate
             task._timestamp = data._timestamp
-            this.doneTasks.unshift(task)
+            this.doneTasks.push(task)
             this.pendingTasks = this.pendingTasks.filter(t => t.id !== task.id)
           } else if (response.status === 400) {
             let data = await response.json()
