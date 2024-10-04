@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3 (2024-10-04)
+
+### Features/Changes
+
+- Highlight `due:` tag.
+
 ## 1.0.2 (2024-09-21)
 
 ### Features/Changes

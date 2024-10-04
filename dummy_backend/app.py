@@ -14,7 +14,7 @@ def get_example_tasks():
             {
                 'id': 1,
                 '_timestamp': 1,
-                'text': 'Example task 1 +todotxt @ui',
+                'text': 'Example task 1 +todotxt @ui due:2025-01-20',
                 'createDate': '2024-01-01',
                 'doneDate': None,
                 'done': False

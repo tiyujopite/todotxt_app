@@ -135,14 +135,9 @@
       </div>
     </div>
     <div class="mt-2 block">
-      <table
-      class="w-full max-w-full border-separate border-spacing-y-2">
-      <tr
-        class="h-12 w-full"
-        id="task_new"
-        >
-          <td
-          class="bg-secondary pl-2 rounded-l-xl w-full select-none">
+      <table class="w-full max-w-full border-separate border-spacing-y-2">
+        <tr id="task_new" class="h-12 w-full">
+          <td class="bg-secondary pl-2 rounded-l-xl w-full select-none">
             <input
             id="task_input_new"
             type="text"
@@ -163,15 +158,13 @@
           </td>
         </tr>
       </table>
-      <table
-      id="pendingTasks"
-      class="w-full max-w-full border-separate border-spacing-y-2">
+      <table id="pendingTasks" class="w-full max-w-full border-separate border-spacing-y-2">
         <tr
         class="h-12"
         v-for="task in pendingTasks"
         :id="'task_' + task.id"
         :key="'task_' + task.id"
-        :class="matchFilters(task) ? '' + ('task_' + task.id == 'task_0' ? '' : 'task') : 'hidden' + ('task_' + task.id == 'task_0' ? '' : ' task')"
+        :class="matchFilters(task) ? 'task' : 'hidden'"
         :data-id="task.id"
         >
           <td class="w-0 bg-secondary rounded-l-xl" :id="'task_done_input_' + task.id">
@@ -243,7 +236,7 @@
           </td>
           <td class="px-0 md:px-4 w-0 bg-secondary rounded-r-xl whitespace-nowrap select-none">
             <small class="hidden md:table-cell">
-              <relative-time :datetime="task.createDate" tense="past" precision="day"></relative-time>
+              <translate>Created</translate> <relative-time :datetime="task.createDate" tense="past" precision="day"/>
             </small>
           </td>
         </tr>
@@ -278,10 +271,10 @@
           <td class="px-0 md:px-4 w-0 bg-secondary rounded-r-xl whitespace-nowrap select-none">
             <div class="flex flex-col">
               <small class="hidden md:table-cell">
-                <translate>Created</translate> <relative-time :datetime="task.createDate" tense="past" precision="day"></relative-time>
+                <translate>Created</translate> <relative-time :datetime="task.createDate" tense="past" precision="day"/>
               </small>
               <small class="hidden md:table-cell">
-                <translate>Doned</translate> <relative-time :datetime="task.doneDate" tense="past" precision="day"></relative-time>
+                <translate>Doned</translate> <relative-time :datetime="task.doneDate" tense="past" precision="day"/>
               </small>
             </div>
           </td>
@@ -300,6 +293,7 @@ import { Http } from '../http.js'
 const PRIORITY_REGEX = /\((A|B|C)\)/g
 const CONTEXT_REGEX = /\@\w+/g
 const PROJECT_REGEX = /\+\w+/g
+const DUE_REGEX = /due:(\d{4}-\d{2}-\d{2})/
 
 export default {
   inject: [],
@@ -331,6 +325,7 @@ export default {
       tasks.forEach(task => {
         task.originalText = task.text
         task.prettyText = this.getPrettyText(task.text)
+        task.dueDate = task.text.match(DUE_REGEX)?.[1] || ''
         task.contexts = new Set(task.text.match(CONTEXT_REGEX) || [])
         task.projects = new Set(task.text.match(PROJECT_REGEX) || [])
         task.priorities = new Set(task.text.match(PRIORITY_REGEX) || [])
@@ -532,6 +527,7 @@ export default {
         .replace(PRIORITY_REGEX, `<span class="font-bold text-yellow-500">$&</span>`)
         .replace(CONTEXT_REGEX, `<span class="font-bold text-green-500">$&</span>`)
         .replace(PROJECT_REGEX, `<span class="font-bold text-red-500">$&</span>`)
+        .replace(DUE_REGEX, `<span class="font-bold text-blue-500">$&</span>`)
     },
     setFocus(id) {
       window.setTimeout(function () { document.getElementById(id).focus() }, 0)
