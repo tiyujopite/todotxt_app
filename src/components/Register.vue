@@ -49,6 +49,19 @@
         :placeholder="$gettext('Repeat password')"
         v-if="!success"
         v-model="password2">
+        <div class="flex items-center mt-2">
+          <input
+          id="terms"
+          type="checkbox"
+          class="w-5 h-5 cursor-pointer flex"
+          v-model="accept_terms"/>
+          <label for="terms" class="py-1 px-2 font-semibold">
+          <translate>I accept</translate>&nbsp;
+          <a @click="$router.push('/terms_and_conditions')" tabindex="-1" class="font-semibold leading-6 text-green-600 cursor-pointer">
+            <translate>terms and conditions</translate>
+          </a>
+          </label>
+        </div>
         <p id="register_error" class="font-semibold text-red-500 mt-1">{{ error }}</p>
         <button
         type="submit"
@@ -84,6 +97,7 @@ export default {
       email2: '',
       password: '',
       password2: '',
+      accept_terms: false,
       error: '',
       success: false,
       overlay: false,
@@ -95,6 +109,8 @@ export default {
         this.error = this.$gettext('Emails do not match')
       } else if (this.password != this.password2) {
         this.error = this.$gettext('Passwords do not match')
+      } else if (!this.accept_terms) {
+        this.error = this.$gettext('You must accept the terms and conditions')
       }
     },
     async register() {
