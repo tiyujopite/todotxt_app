@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.4 (2024-10-20)
+
+### Features/Changes
+
+- Add terms and conditions.
+
 ## 1.0.3 (2024-10-04)
 
 ### Features/Changes
