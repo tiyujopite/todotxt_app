@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../components/Home.vue'
+import TermsAndConditions from '../components/TermsAndConditions.vue'
 import Tasks from '../components/Tasks.vue'
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
@@ -33,6 +34,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/terms_and_conditions',
+      name: 'terms_and_conditions',
+      component: TermsAndConditions
     },
     {
       path: '/login',
