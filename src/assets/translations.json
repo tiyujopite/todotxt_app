@@ -1,6 +1,8 @@
 {
     "en": {
-        "I accept": "I accept",
+        "Links": "Links",
+        "Report a bug": "Report a bug",
+        "Make a suggestion": "Make a suggestion",
         "terms and conditions": "terms and conditions",
         "You must accept the terms and conditions": "You must accept the terms and conditions",
         "tc_title_1": "Terms and Conditions of Use",
@@ -17,7 +19,6 @@
         "tc_p_6": "This todotxt.app guarantees that the personal information you submit is secure. The data entered by the user will not be provided to third parties, except when required by a judicial order or legal requirements.",
         "tc_p_7": "Subscription to advertising email newsletters is voluntary and may be selected when creating your account.",
         "tc_p_8": "todotxt.app reserves the right to change or modify these terms without prior notice.",
-        "Changelog": "Changelog",
         "Actions": "Actions",
         "Contribute": "Contribute",
         "Source code": "Source code",
@@ -91,6 +92,9 @@
         "Autocomplete projects in new tasks with filtered projects.": "Autocomplete projects in new tasks with filtered projects."
     },
     "es": {
+        "Links": "Enlaces",
+        "Report a bug": "Informar de un error",
+        "Make a suggestion": "Hacer una sugerencia",
         "I accept": "Acepto",
         "terms and conditions": "los términos y condiciones",
         "You must accept the terms and conditions": "Debes aceptar los términos y condiciones",
@@ -108,7 +112,6 @@
         "tc_p_6": "Este todotxt.app garantiza que la información personal que usted envía cuenta con la seguridad necesaria. Los datos ingresados por usuario no serán entregados a terceros, salvo que deba ser revelada en cumplimiento a una orden judicial o requerimientos legales.",
         "tc_p_7": "La suscripción a boletines de correos electrónicos publicitarios es voluntaria y podría ser seleccionada al momento de crear su cuenta.",
         "tc_p_8": "todotxt.app reserva los derechos de cambiar o de modificar estos términos sin previo aviso.",
-        "Changelog": "Changelog",
         "Actions": "Acciones",
         "Source code": "Código fuente",
         "Contribute": "Contribuir",
@@ -184,6 +187,9 @@
         "Autocomplete projects in new tasks with filtered projects.": "Autocompletar proyectos en nuevas tareas con los proyectos filtrados."
     },
     "fr": {
+        "Links": "Liens",
+        "Report a bug": "Signaler un bug",
+        "Make a suggestion": "Faire une suggestion",
         "I accept": "J'accepte",
         "terms and conditions": "les termes et conditions",
         "You must accept the terms and conditions": "Vous devez accepter les termes et conditions",
@@ -201,7 +207,6 @@
         "tc_p_6": "Ce site todotxt.app garantit que les informations personnelles que vous soumettez sont sécurisées. Les données saisies par l'utilisateur ne seront pas fournies à des tiers, sauf si elles doivent être divulguées conformément à une ordonnance judiciaire ou à des exigences légales.",
         "tc_p_7": "L'abonnement aux bulletins d'information publicitaires par e-mail est volontaire et peut être sélectionné lors de la création de votre compte.",
         "tc_p_8": "todotxt.app se réserve le droit de modifier ces termes sans préavis.",
-        "Changelog": "Changelog",
         "Actions": "Actions",
         "Source code": "Code source",
         "Contribute": "Contribuer",
