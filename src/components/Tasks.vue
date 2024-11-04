@@ -373,9 +373,9 @@ export default {
     },
     matchFilters(task) {
       return Boolean(
-        (this.contexts_filter.size !== 0 ? new Set(task.contexts).intersection(this.contexts_filter).size == this.contexts_filter.size : true)
-        && (this.projects_filter.size !== 0 ? new Set(task.projects).intersection(this.projects_filter).size == this.projects_filter.size : true)
-        && (this.priorities_filter.size !== 0 ? new Set(task.priorities).intersection(this.priorities_filter).size == this.priorities_filter.size : true)
+        (this.projects_filter.size !== 0 ? new Set(task.projects).intersection(this.projects_filter).size >=1 : true)
+        && (this.contexts_filter.size !== 0 ? new Set(task.contexts).intersection(this.contexts_filter).size >= 1 : true)
+        && (this.priorities_filter.size !== 0 ? new Set(task.priorities).intersection(this.priorities_filter).size >= 1 : true)
       )
     },
     async toggleDoneTask(task, action) {
