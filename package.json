@@ -11,7 +11,6 @@
   "dependencies": {
     "@github/relative-time-element": "^4.4.1",
     "bootstrap-icons": "^1.11.3",
-    "marked": "^14.1.2",
     "sortablejs": "^1.15.2",
     "vue": "^3.4.21",
     "vue-loading-overlay": "^6.0.4",

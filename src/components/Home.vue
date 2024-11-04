@@ -60,6 +60,27 @@
               <i class="bi bi-github"></i>
               <span class="mx-4"><a href="https://github.com/tiyujopite/todotxt_app" target="_blank" class="text-green-600"><translate>Source code</translate></a></span>
             </div>
+            <div class="flex items-center">
+              <i class="bi bi-github"></i>
+              <span class="mx-4"><a href="https://github.com/tiyujopite/todotxt_app/issues" target="_blank" class="text-green-600"><translate>Report a bug</translate></a></span>
+            </div>
+            <div class="flex items-center">
+              <i class="bi bi-github"></i>
+              <span class="mx-4"><a href="https://github.com/tiyujopite/todotxt_app/issues" target="_blank" class="text-green-600"><translate>Make a suggestion</translate></a></span>
+            </div>
+          </div>
+        </div>
+        <div class="px-6 py-4 transition-colors duration-200 transform rounded-xl bg-secondary accent-color-hover">
+          <p class="text-2xl font-semibold"><translate>Links</translate></p>
+          <div class="mt-6 space-y-4">
+            <div class="flex items-center">
+              <i class="bi bi-github"></i>
+              <span class="mx-4"><a href="https://github.com/tiyujopite/todotxt_app/blob/main/CHANGELOG.md" target="_blank" class="text-green-600">CHANGELOG</a></span>
+            </div>
+            <div class="flex items-center">
+              <i class="bi bi-link"></i>
+              <span class="mx-4"><a href="/terms_and_conditions" target="_blank" class="text-green-600"><translate>tc_title_1</translate></a></span>
+            </div>
           </div>
         </div>
         <div class="px-6 py-4 transition-colors duration-200 transform rounded-xl bg-secondary accent-color-hover">
@@ -76,6 +97,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>

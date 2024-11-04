@@ -174,14 +174,6 @@ export default {
         },
         {
           type: 'item',
-          name: 'Changelog',
-          class: 'bi bi-clock-history',
-          click: this.$router.push,
-          arg: '/changelog',
-          authenticated: undefined,
-        },
-        {
-          type: 'item',
           name: 'Tasks',
           class: 'bi bi-list-task',
           click: this.$router.push,
