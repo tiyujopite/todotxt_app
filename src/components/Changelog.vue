@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="container mt-8 px-3 py-8">
+    <div class="container mt-8 mx-auto px-0 sm:px-5 lg:px-7">
       <div class="w-full p-4 markdown" v-html="changelog"></div>
     </div>
   </section>
