@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from flask import Flask, Response, json, request
 from flask_cors import CORS, cross_origin
@@ -9,40 +9,53 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 def get_example_tasks():
+    today = datetime.now().date()
+
+    def str_date(days):
+        return (today + timedelta(days=days)).strftime('%Y-%m-%d')
+
     return {
         'pending': [
             {
                 'id': 1,
                 '_timestamp': 1,
-                'text': 'Example task 1 +todotxt @ui due:2025-01-20',
-                'createDate': '2024-01-01',
+                'text': f'(A) Example task 1 +todotxt @ui due:{str_date(30)}',
+                'createDate': str_date(-1),
                 'doneDate': None,
                 'done': False
             },
             {
                 'id': 2,
                 '_timestamp': 2,
-                'text': 'Example task 2 +todotxt @ui',
-                'createDate': '2024-01-02',
+                'text': '(B) Example task 2 +todotxt',
+                'createDate': str_date(-1),
                 'doneDate': None,
                 'done': False
             },
             {
                 'id': 3,
                 '_timestamp': 3,
-                'text': 'Example task 3 +todotxt @ui',
-                'createDate': '2024-01-03',
+                'text': 'Example task 3 +other_project @ui',
+                'createDate': str_date(-7),
+                'doneDate': None,
+                'done': False
+            },
+            {
+                'id': 4,
+                '_timestamp': 4,
+                'text': '(A) Example task 4 +other_project @ui',
+                'createDate': str_date(-7),
                 'doneDate': None,
                 'done': False
             },
         ],
         'done': [
             {
-                'id': 4,
-                '_timestamp': 4,
-                'text': 'Example task 4 +todotxt @backend',
-                'createDate': '2024-01-04',
-                'doneDate': '2024-01-04',
+                'id': 5,
+                '_timestamp': 5,
+                'text': '(C) Example task 4 +todotxt @backend',
+                'createDate': str_date(-7),
+                'doneDate': str_date(-7),
                 'done': True
             },
         ]
