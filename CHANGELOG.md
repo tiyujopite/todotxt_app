@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.5 (2024-11-04)
+
+### Features/Changes
+
+- Replace changelog page by github link.
+- Use OR instead AND for filters.
+
 ## 1.0.4 (2024-10-20)
 
 ### Features/Changes
