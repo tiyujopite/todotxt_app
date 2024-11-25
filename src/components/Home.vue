@@ -5,11 +5,6 @@
         <div class="w-full">
           <h2 class="text-3xl font-bold text-center"><translate>Simple, efficient, and fully exportable.</translate></h2>
           <p class="mt-4 text-lg text-center"><translate>txt_home_header_description</translate></p>
-          <p class="text-lg text-center">
-            <a href="http://todotxt.org/" target="_blank" class="text-green-600 font-medium"><translate>Official website</translate></a>
-            <br>
-            <a href="https://github.com/todotxt/todo.txt" target="_blank" class="text-green-600 font-medium"><translate>Rules and format</translate></a>
-          </p>
         </div>
       </div>
       <div class="flex justify-center">
@@ -26,6 +21,10 @@
         <div class="px-6 py-4 transition-colors duration-200 transform rounded-xl bg-secondary accent-color-hover">
           <p class="text-2xl font-semibold"><translate>Features</translate></p>
           <div class="mt-6 space-y-4">
+            <div class="flex items-center">
+              <i class="bi bi-people-fill"></i>
+              <span class="mx-4"><translate>Share your project task</translate></span>
+            </div>
             <div class="flex items-center">
               <i class="bi bi-arrow-down-up"></i>
               <span class="mx-4"><translate>Drag-and-drop ordering</translate></span>
@@ -80,6 +79,14 @@
             <div class="flex items-center">
               <i class="bi bi-link"></i>
               <span class="mx-4"><a href="/terms_and_conditions" target="_blank" class="text-green-600"><translate>tc_title_1</translate></a></span>
+            </div>
+            <div class="flex items-center">
+              <i class="bi bi-link"></i>
+              <span class="mx-4"><a href="http://todotxt.org/" target="_blank" class="text-green-600">todotxt.org</a></span>
+            </div>
+            <div class="flex items-center">
+              <i class="bi bi-link"></i>
+              <span class="mx-4"><a href="https://github.com/todotxt/todo.txt" target="_blank" class="text-green-600"><translate>Rules and format</translate></a></span>
             </div>
           </div>
         </div>
