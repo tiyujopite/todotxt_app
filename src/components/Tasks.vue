@@ -48,6 +48,7 @@
       />
       <button
       class="py-1 px-2 ml-1 md:ml-2 rounded-xl bg-green-600 font-semibold mt-2"
+      :title="$gettext('Refresh')"
       @click="refresh"
       >
       <i class="bi bi-arrow-clockwise"></i>
@@ -145,14 +146,15 @@
             maxlength="200"
             v-model="new_text"
             autocomplete="off"
-            @keydown.enter="writeTask({text: new_text})"
+            @keydown.enter="writeTask({text: new_text, owner: true})"
             :placeholder="$gettext('Type your task here')"
             >
           </td>
           <td class="w-0 bg-secondary rounded-r-xl">
             <button
             class="rounded-xl mx-3 cursor-pointer hover:scale-110 focus:scale-110"
-            @click="writeTask({text: new_text})">
+            :title="$gettext('Save')"
+            @click="writeTask({text: new_text, owner: true})">
               <i class="bi bi-floppy-fill"></i>
             </button>
           </td>
@@ -160,11 +162,11 @@
       </table>
       <table id="pendingTasks" class="w-full max-w-full border-separate border-spacing-y-2">
         <tr
-        class="h-12"
+        class="h-12 relative"
         v-for="task in pendingTasks"
         :id="'task_' + task.id"
         :key="'task_' + task.id"
-        :class="matchFilters(task) ? 'task' : 'hidden'"
+        :class="matchFilters(task) ? (this.projects_filter.size !== 0 ? 'draggable': 'no-draggable') : 'hidden'"
         :data-id="task.id"
         >
           <td class="w-0 bg-secondary rounded-l-xl" :id="'task_done_input_' + task.id">
@@ -202,43 +204,52 @@
             :key="'task_p_' + task.id"
             v-html="task.prettyText"></p>
           </td>
-          <td v-if="!task.dirty" class="w-0 bg-secondary">
+          <td class="bg-secondary rounded-r-xl md:rounded-r-none">
             <button
-            class="rounded-xl mx-1 cursor-pointer hover:scale-110 focus:scale-110"
-            v-if="!task.done"
+            v-if="!task.dirty && task.owner"
+            class="mx-1 pr-2 md:pr-0 cursor-pointer hover:scale-110 focus:scale-110"
+            :title="$gettext('Delete')"
             @click="deleteTask(task)">
-            <i v-if="!task.tryingDelete" class="bi bi-trash3"></i>
-            <i v-if="task.tryingDelete" class="bi bi-trash3-fill"></i>
+              <i v-if="!task.tryingDelete" class="bi bi-trash3"></i>
+              <i v-if="task.tryingDelete" class="bi bi-trash3-fill"></i>
             </button>
-          </td>
-          <td v-if="!task.dirty" class="w-0 bg-secondary rounded-r-xl md:rounded-r-none">
+            <i v-else
+            v-if="!task.dirty"
+            class="bi bi-people-fill"
+            :title="$gettext('Shared with you')"></i>
             <button
-            class="rounded-xl ml-1 mr-3 cursor-pointer hover:scale-110 focus:scale-110"
-            v-if="!task.done"
+            v-if="!task.dirty"
+            class="mx-1 pr-2 md:pr-0 cursor-pointer hover:scale-110 focus:scale-110"
+            :title="$gettext('Edit')"
             @click="edit(task)">
               <i class="bi bi-pencil-fill"></i>
             </button>
-          </td>
-          <td v-if="task.dirty" class="w-0 bg-secondary">
             <button
-            class="rounded-xl mx-1 cursor-pointer hover:scale-110 focus:scale-110"
-            v-if="task.id !== 0"
+            v-if="task.dirty"
+            class="mx-1 pr-2 md:pr-0 cursor-pointer hover:scale-110 focus:scale-110"
+            :title="$gettext('Cancel')"
             @click="clearDirty(task)">
-            <i class="bi bi-x-lg"></i>
+              <i class="bi bi-x-lg"></i>
             </button>
-          </td>
-          <td v-if="task.dirty" class="w-0 bg-secondary rounded-r-xl md:rounded-r-none">
             <button
-            class="rounded-xl mx-1 cursor-pointer hover:scale-110 focus:scale-110"
+            v-if="task.dirty"
+            class="mx-1 pr-2 md:pr-0 cursor-pointer hover:scale-110 focus:scale-110"
+            :title="$gettext('Save')"
             @click="writeTask(task)">
               <i class="bi bi-floppy-fill"></i>
             </button>
           </td>
-          <td class="px-0 md:px-4 w-0 bg-secondary rounded-r-xl whitespace-nowrap select-none">
+          <td class="px-0 md:px-2 w-0 bg-secondary rounded-r-xl whitespace-nowrap select-none">
             <small class="hidden md:table-cell">
               <translate>Created</translate> <relative-time :datetime="task.createDate" tense="past" precision="day"/>
             </small>
           </td>
+          <span
+          class="absolute bottom-0 left-0 bg-green-600 rounded-full text-xs px-0.5 -translate-x-1/4 translate-y-1/4"
+          v-if="task.shared && task.owner"
+          :title="$gettext('Shared')">
+            <i v-if="task.shared && task.owner" class="bi bi-people-fill"></i>
+          </span>
         </tr>
       </table>
       <table
@@ -268,7 +279,7 @@
             :key="'task_p_' + task.id"
             v-html="task.prettyText"></p>
           </td>
-          <td class="px-0 md:px-4 w-0 bg-secondary rounded-r-xl whitespace-nowrap select-none">
+          <td class="px-0 md:px-2 w-0 bg-secondary rounded-r-xl whitespace-nowrap select-none">
             <div class="flex flex-col">
               <small class="hidden md:table-cell">
                 <translate>Created</translate> <relative-time :datetime="task.createDate" tense="past" precision="day"/>
@@ -468,6 +479,7 @@ export default {
             this.pendingTasks.unshift(task)
           }
           task._timestamp = data._timestamp
+          task.shared = data.shared
         }
 
         task.dirty = false
@@ -618,6 +630,8 @@ export default {
       }
     },
     addFilter(filter, value) {
+      // only one project filter at a time
+      if (filter === 'projects') { this[`${filter}_filter`].clear() }
       this[`${filter}_filter`].add(value)
       localStorage.setItem(`${filter}-filter`, Array.from(this[`${filter}_filter`]))
     },
@@ -667,7 +681,7 @@ export default {
         swapThreshold: 0.75,
         animation: 150,
         delay: 150,
-        draggable: '.task'
+        draggable: '.draggable',
       })
     this.sortableOriginalOrder = sortable.toArray()
     this.sortable = sortable
