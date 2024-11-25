@@ -9,6 +9,7 @@ import Import from '../components/Import.vue'
 import ConfirmEmail from '../components/ConfirmEmail.vue'
 import SendChangePassword from '../components/SendChangePassword.vue'
 import ChangePassword from '../components/ChangePassword.vue'
+import Preferences from '../components/Preferences.vue'
 
 function isAuthenticated() {return document.cookie.includes('authenticated=true')}
 
@@ -85,6 +86,12 @@ const router = createRouter({
       path: '/import',
       name: 'import',
       component: Import,
+      beforeEnter: authRequired
+    },
+    {
+      path: '/preferences',
+      name: 'preferences',
+      component: Preferences,
       beforeEnter: authRequired
     },
     { path: '/:pathMatch(.*)*', redirect: '/' },
