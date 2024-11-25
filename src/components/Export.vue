@@ -7,7 +7,7 @@
       <p class="font-semibold text-red-500 mt-1">{{ error }}</p>
       <button
       v-if="!filename && !filehref"
-      class="py-2 px-3 rounded-xl bg-green-600 font-semibold mt-2 flex items-center"
+      class="flex w-full justify-center rounded-xl bg-green-600 px-3 p-2 font-semibold cursor-pointer mt-3"
       @click="generateExportFile()"
       :title="$gettext('Generate export file')">
         <translate>Generate export file</translate>
