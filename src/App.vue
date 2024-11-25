@@ -219,6 +219,14 @@ export default {
             },
             {
               type: 'item',
+              name: 'Preferences',
+              class: 'bi bi-person-fill-gear',
+              click: this.$router.push,
+              arg: '/preferences',
+              authenticated: true,
+            },
+            {
+              type: 'item',
               name: 'Change password',
               class: 'bi bi-key-fill',
               click: this.$router.push,
