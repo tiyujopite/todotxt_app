@@ -8,6 +8,8 @@
   </li>
 </template>
 <script>
+import { Http } from '../http.js'
+
 export default {
   data() {
     return {
@@ -20,19 +22,29 @@ export default {
     }
   },
   methods: {
+    isAuthenticated() {
+      return document.cookie.includes('authenticated=true')
+    },
     getLang() {
       return localStorage.getItem('user-lang') || 'en'
     },
-    setLang(lang) {
+    async setLang(lang, init = false) {
       this.userLang = lang
       document.querySelector('html').setAttribute('lang', lang)
       localStorage.setItem('user-lang', lang)
       this.$language.current = lang
+      if (this.isAuthenticated() && !init) {
+        try {
+          await Http('POST', '/api/preferences', {'lang': lang})
+        } catch (error) {
+          console.log(error)
+        }
+      }
     },
   },
   created() {
     const initUserLang = this.getLang()
-    this.setLang(initUserLang)
+    this.setLang(initUserLang, true)
   },
 }
 </script>
