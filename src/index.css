@@ -108,6 +108,7 @@ input[type=number] {
 }
 
 .pretty-text {
+  overflow-wrap: anywhere;
   /* Fix iOS unexpected align */
   text-align: left !important;
 }
