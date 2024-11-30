@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.0 (2024-11-30)
+
+### Features/Changes
+
+- Add user preferences.
+- Allow share projects.
+- Only allow select one project at once.
+- Only allow short tasks when project is selected.
+
+### Bug Fixes
+
+- Hide "Accept" T&C button after register.
+- Fix overflow in large string in tasks.
+
 ## 1.0.5 (2024-11-04)
 
 ### Features/Changes
