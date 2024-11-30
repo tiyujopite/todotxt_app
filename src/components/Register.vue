@@ -49,7 +49,9 @@
         :placeholder="$gettext('Repeat password')"
         v-if="!success"
         v-model="password2">
-        <div class="flex items-center mt-2">
+        <div
+        class="flex items-center mt-2"
+        v-if="!success">
           <input
           id="terms"
           type="checkbox"
@@ -123,6 +125,7 @@ export default {
         let response = await Http('POST', '/api/register', {
           'email': this.email,
           'password': this.password,
+          'lang': localStorage.getItem('user-lang') || 'en'
         })
         this.$emit('checkAuthCookie')
         this.overlay = false
