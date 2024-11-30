@@ -22,7 +22,9 @@ def get_example_tasks():
                 'text': f'(A) Example task 1 +todotxt @ui due:{str_date(30)}',
                 'createDate': str_date(-1),
                 'doneDate': None,
-                'done': False
+                'done': False,
+                'shared': True,
+                'owner': False,
             },
             {
                 'id': 2,
@@ -30,7 +32,9 @@ def get_example_tasks():
                 'text': '(B) Example task 2 +todotxt',
                 'createDate': str_date(-1),
                 'doneDate': None,
-                'done': False
+                'done': False,
+                'shared': True,
+                'owner': False,
             },
             {
                 'id': 3,
@@ -38,7 +42,9 @@ def get_example_tasks():
                 'text': 'Example task 3 +other_project @ui',
                 'createDate': str_date(-7),
                 'doneDate': None,
-                'done': False
+                'done': False,
+                'shared': True,
+                'owner': True,
             },
             {
                 'id': 4,
@@ -46,17 +52,21 @@ def get_example_tasks():
                 'text': '(A) Example task 4 +other_project @ui',
                 'createDate': str_date(-7),
                 'doneDate': None,
-                'done': False
+                'done': False,
+                'shared': False,
+                'owner': True,
             },
         ],
         'done': [
             {
                 'id': 5,
                 '_timestamp': 5,
-                'text': '(C) Example task 4 +todotxt @backend',
+                'text': '(C) Example task 5 +todotxt @backend',
                 'createDate': str_date(-7),
                 'doneDate': str_date(-7),
-                'done': True
+                'done': True,
+                'shared': False,
+                'owner': False,
             },
         ]
     }
