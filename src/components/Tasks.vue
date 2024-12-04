@@ -517,13 +517,24 @@ export default {
     },
     edit(task) {
       task.editing = true
-      this.setFocus('task_input_' + task.id)
+      window.setTimeout(function () {
+        let input = document.getElementById(`task_input_${task.id}`)
+        input.focus()
+        // set cursor before first character of + or @ or due
+        const regexes = [PROJECT_REGEX, CONTEXT_REGEX, DUE_REGEX];
+        let minIndex = task.text.length
+        for (let regex of regexes) {
+          let match = task.text.match(regex)
+          if (match) {
+            let index = task.text.indexOf(match[0])
+            if (index > 0 && task.text.slice(index - 1, index) === ' ') index -= 1
+            if (index < minIndex) minIndex = index
+          }
+        }
+        input.setSelectionRange(minIndex, minIndex)
+      }, 0)
     },
     clearDirty(task) {
-      if (!task.id) {
-        this.clearFocus('task_input_0')
-        return
-      }
       task.text = task.originalText
       task.dirty = false
       task.editing = false
