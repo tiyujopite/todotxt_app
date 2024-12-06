@@ -19,9 +19,7 @@ def get_example_tasks():
             {
                 'id': 1,
                 '_timestamp': 1,
-                'text': f'(A) Example task 1 +todotxt @ui due:{str_date(30)}',
-                'createDate': str_date(-1),
-                'doneDate': None,
+                'text': f'(A) Example 1\n+todotxt @ui due:{str_date(30)}',
                 'done': False,
                 'shared': True,
                 'owner': False,
@@ -29,9 +27,7 @@ def get_example_tasks():
             {
                 'id': 2,
                 '_timestamp': 2,
-                'text': '(B) Example task 2 +todotxt',
-                'createDate': str_date(-1),
-                'doneDate': None,
+                'text': '(B) Example 2 +todotxt',
                 'done': False,
                 'shared': True,
                 'owner': False,
@@ -40,8 +36,6 @@ def get_example_tasks():
                 'id': 3,
                 '_timestamp': 3,
                 'text': 'Example task 3 +other_project @ui',
-                'createDate': str_date(-7),
-                'doneDate': None,
                 'done': False,
                 'shared': True,
                 'owner': True,
@@ -49,9 +43,7 @@ def get_example_tasks():
             {
                 'id': 4,
                 '_timestamp': 4,
-                'text': '(A) Example task 4 +other_project @ui',
-                'createDate': str_date(-7),
-                'doneDate': None,
+                'text': '(A) Example task 4.\n  - Foo\n  - Bar\n+other_project @ui',  # noqa
                 'done': False,
                 'shared': False,
                 'owner': True,
@@ -62,11 +54,9 @@ def get_example_tasks():
                 'id': 5,
                 '_timestamp': 5,
                 'text': '(C) Example task 5 +todotxt @backend',
-                'createDate': str_date(-7),
-                'doneDate': str_date(-7),
                 'done': True,
-                'shared': False,
-                'owner': False,
+                'shared': True,
+                'owner': True,
             },
         ]
     }
@@ -199,12 +189,24 @@ def export_file():
 @app.route('/api/task', methods=['POST'])
 @cross_origin(supports_credentials=True)
 def operation_task():
-    data = {
-        '_timestamp': 1,
-        'doneDate': '2024-01-01',
-        }
+    data = {'_timestamp': 1}
     response = Response(json.dumps(data), mimetype='application/json')
     return response
+
+
+@app.route('/api/preferences', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def get_preferences():
+    return {
+        'email_backup': True,
+        'shared_projects': '',
+        }
+
+
+@app.route('/api/preferences', methods=['POST'])
+@cross_origin(supports_credentials=True)
+def post_preferences():
+    return {}
 
 
 if __name__ == '__main__':

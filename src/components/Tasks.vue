@@ -1,10 +1,7 @@
 <template>
   <div class="w-full h-full">
     <Loading v-model:active="overlay"/>
-    <div
-    role="dialog"
-    class="relative z-50"
-    v-if="error">
+    <div role="dialog" class="relative z-50" v-if="error">
       <div class="fixed inset-0 bg-primary opacity-75 transition-opacity" aria-hidden="true"></div>
       <div class="fixed inset-0 z-50 w-screen overflow-y-auto">
         <div class="flex min-h-full justify-center p-4 text-center items-center sm:p-0">
@@ -34,7 +31,7 @@
       class="py-1 px-2 mr-1 md:mr-2 ml-8 md:ml-0 rounded-xl bg-green-600 font-semibold mt-2 flex items-center"
       @click="toggleFiltersMenu"
       :title="$gettext('Filters')">
-      <translate class="hidden md:block">Filters</translate><i class="bi bi-funnel-fill"></i><span v-if="projects_filter.size + contexts_filter.size + priorities_filter.size > 0">({{ projects_filter.size + contexts_filter.size + priorities_filter.size }})</span>
+        <translate class="hidden md:block">Filters</translate><i class="bi bi-funnel-fill"></i><span v-if="projects_filter.size + contexts_filter.size + priorities_filter.size > 0">({{ projects_filter.size + contexts_filter.size + priorities_filter.size }})</span>
       </button>
       <input
       id="search_input"
@@ -51,14 +48,14 @@
       :title="$gettext('Refresh')"
       @click="refresh"
       >
-      <i class="bi bi-arrow-clockwise"></i>
+        <i class="bi bi-arrow-clockwise"></i>
       </button>
       <button
       id="settings_button"
       class="py-1 px-2 ml-1 md:ml-2 rounded-xl bg-green-600 font-semibold mt-2"
       :title="$gettext('Settings')"
       @click="toggleSettingsMenu">
-      <i class="bi bi-three-dots"></i>
+        <i class="bi bi-three-dots"></i>
       </button>
     </div>
     <div id="filters"
@@ -137,20 +134,20 @@
     </div>
     <div class="mt-2 block">
       <table class="w-full max-w-full border-separate border-spacing-y-2">
-        <tr id="task_new" class="h-12 w-full">
-          <td class="bg-secondary pl-2 rounded-l-xl w-full select-none">
-            <input
+        <tr id="task_new" class="select-none">
+          <td class="min-h-12 bg-secondary w-full rounded-xl flex items-center">
+            <textarea
             id="task_input_new"
-            type="text"
-            class="w-full bg-secondary p-1.5 pl-2.5 rounded-xl border-0"
+            class="w-full bg-secondary p-1.5 pl-2.5 rounded-xl border-0 resize-none overflow-hidden block"
+            style="height: 40px"
             maxlength="200"
-            v-model="new_text"
             autocomplete="off"
-            @keydown.enter="writeTask({text: new_text, owner: true})"
+            v-model="new_text"
             :placeholder="$gettext('Type your task here')"
-            >
-          </td>
-          <td class="w-0 bg-secondary rounded-r-xl">
+            @keyup.ctrl.enter="writeTask({text: new_text, owner: true})"
+            @blur="setInputTaskHeight('task_input_new')"
+            @input="setInputTaskHeight('task_input_new')"
+            ></textarea>
             <button
             class="rounded-xl mx-3 cursor-pointer hover:scale-110 focus:scale-110"
             :title="$gettext('Save')"
@@ -162,87 +159,79 @@
       </table>
       <table id="pendingTasks" class="w-full max-w-full border-separate border-spacing-y-2">
         <tr
-        class="h-12 relative"
+        class="relative select-none"
         v-for="task in pendingTasks"
         :id="'task_' + task.id"
         :key="'task_' + task.id"
         :class="matchFilters(task) ? (this.projects_filter.size !== 0 ? 'draggable': 'no-draggable') : 'hidden'"
         :data-id="task.id"
         >
-          <td class="w-0 bg-secondary rounded-l-xl" :id="'task_done_input_' + task.id">
-            <div class="ml-4 mr-3">
+          <td class="min-h-12 bg-secondary w-full rounded-xl flex items-center">
+            <div class="p-1 ml-2 rounded-xl" :id="'task_done_input_' + task.id">
               <input
-                type="checkbox"
-                class="w-5 h-5 cursor-pointer flex"
-                v-model="task.done"
-                :disabled="task.dirty"
-                @click="toggleDoneTask(task, 'done')"
+              type="checkbox"
+              class="w-5 h-5 cursor-pointer flex"
+              v-model="task.done"
+              :disabled="task.dirty"
+              @click="toggleDoneTask(task, 'done')"
               />
             </div>
-          </td>
-          <td
-          class="bg-secondary w-full">
-            <input
-            type="text"
-            class="w-full bg-secondary p-1.5 pl-2.5 rounded-xl border-0"
+            <textarea
+            class="w-full bg-secondary p-1.5 pl-2.5 rounded-xl border-0 resize-none overflow-hidden block"
+            style="height: 40px"
             maxlength="200"
             v-model="task.text"
-            @input="task.dirty = true"
+            @input="task.dirty = true; setInputTaskHeight(`task_input_${task.id}`)"
             @blur="blurDirty(task)"
             v-if="task.editing"
             autocomplete="off"
             @keydown.esc="clearDirty(task)"
-            @keydown.enter="writeTask(task)"
+            @keyup.ctrl.enter="writeTask(task)"
             @keydown.insert.stop
             :id="'task_input_' + task.id"
-            :key="'task_input_' + task.id">
+            :key="'task_input_' + task.id"></textarea>
             <p
-            class="w-full p-1.5 pl-2.5 pretty-text"
+            class="w-full p-1.5 pl-2.5 pr-0 pretty-text"
             v-if="!task.editing"
             @dblclick="edit(task)"
             :id="'task_p_' + task.id"
             :key="'task_p_' + task.id"
             v-html="task.prettyText"></p>
-          </td>
-          <td class="bg-secondary rounded-r-xl md:rounded-r-none">
-            <button
-            v-if="!task.dirty && task.owner"
-            class="mx-1 pr-2 md:pr-0 cursor-pointer hover:scale-110 focus:scale-110"
-            :title="$gettext('Delete')"
-            @click="deleteTask(task)">
-              <i v-if="!task.tryingDelete" class="bi bi-trash3"></i>
-              <i v-if="task.tryingDelete" class="bi bi-trash3-fill"></i>
-            </button>
-            <i v-else
-            v-if="!task.dirty"
-            class="bi bi-people-fill"
-            :title="$gettext('Shared with you')"></i>
-            <button
-            v-if="!task.dirty"
-            class="mx-1 pr-2 md:pr-0 cursor-pointer hover:scale-110 focus:scale-110"
-            :title="$gettext('Edit')"
-            @click="edit(task)">
-              <i class="bi bi-pencil-fill"></i>
-            </button>
-            <button
-            v-if="task.dirty"
-            class="mx-1 pr-2 md:pr-0 cursor-pointer hover:scale-110 focus:scale-110"
-            :title="$gettext('Cancel')"
-            @click="clearDirty(task)">
-              <i class="bi bi-x-lg"></i>
-            </button>
-            <button
-            v-if="task.dirty"
-            class="mx-1 pr-2 md:pr-0 cursor-pointer hover:scale-110 focus:scale-110"
-            :title="$gettext('Save')"
-            @click="writeTask(task)">
-              <i class="bi bi-floppy-fill"></i>
-            </button>
-          </td>
-          <td class="px-0 md:px-2 w-0 bg-secondary rounded-r-xl whitespace-nowrap select-none">
-            <small class="hidden md:table-cell">
-              <translate>Created</translate> <relative-time :datetime="task.createDate" tense="past" precision="day"/>
-            </small>
+            <div class="flex flex-col justify-between ml-2 self-stretch">
+              <button
+              v-if="!task.dirty && task.owner"
+              class="mx-1 pr-2 cursor-pointer hover:scale-110 focus:scale-110"
+              :title="$gettext('Delete')"
+              @click="deleteTask(task)">
+                <i v-if="!task.tryingDelete" class="bi bi-trash3"></i>
+                <i v-if="task.tryingDelete" class="bi bi-trash3-fill"></i>
+              </button>
+              <i v-else
+              v-if="!task.dirty"
+              class="mx-1 pr-2 bi bi-people-fill"
+              :title="$gettext('Shared with you')"></i>
+              <button
+              v-if="!task.dirty"
+              class="mx-1 pr-2 cursor-pointer hover:scale-110 focus:scale-110"
+              :title="$gettext('Edit')"
+              @click="edit(task)">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+              <button
+              v-if="task.dirty"
+              class="mx-1 pr-2 cursor-pointer hover:scale-110 focus:scale-110"
+              :title="$gettext('Cancel')"
+              @click="clearDirty(task)">
+                <i class="bi bi-x-lg"></i>
+              </button>
+              <button
+              v-if="task.dirty"
+              class="mx-1 pr-2 cursor-pointer hover:scale-110 focus:scale-110"
+              :title="$gettext('Save')"
+              @click="writeTask(task)">
+                <i class="bi bi-floppy-fill"></i>
+              </button>
+            </div>
           </td>
           <span
           class="absolute bottom-0 left-0 bg-green-600 rounded-full text-xs px-0.5 -translate-x-1/4 translate-y-1/4"
@@ -252,18 +241,15 @@
           </span>
         </tr>
       </table>
-      <table
-      id="doneTasks"
-      class="w-full max-w-full border-separate border-spacing-y-2"
+      <table id="doneTasks" class="w-full max-w-full border-separate border-spacing-y-2"
       v-if="showDone">
-        <tr
-        class="h-12 opacity-50 done"
+        <tr class="relative opacity-50 done select-none"
         v-for="task in doneTasks"
         :class="matchFilters(task) ? '' : 'hidden'"
         :id="'task_' + task.id"
         :data-id="task.id">
-          <td class="w-0 bg-secondary rounded-l-xl" :id="'task_done_input_' + task.id">
-            <div class="ml-4 mr-3">
+          <td class="min-h-12 bg-secondary w-full rounded-xl flex items-center" >
+            <div class="p-1 ml-2 rounded-xl" :id="'task_done_input_' + task.id">
               <input
                 type="checkbox"
                 class="w-5 h-5 cursor-pointer rounded-xl flex"
@@ -271,24 +257,18 @@
                 @click="toggleDoneTask(task, 'undone')"
               />
             </div>
-          </td>
-          <td class="bg-secondary rounded-r-xl md:rounded-r-none w-full">
             <p
             class="w-full p-1.5 pl-2.5 pretty-text"
             :id="'task_p_' + task.id"
             :key="'task_p_' + task.id"
             v-html="task.prettyText"></p>
           </td>
-          <td class="px-0 md:px-2 w-0 bg-secondary rounded-r-xl whitespace-nowrap select-none">
-            <div class="flex flex-col">
-              <small class="hidden md:table-cell">
-                <translate>Created</translate> <relative-time :datetime="task.createDate" tense="past" precision="day"/>
-              </small>
-              <small class="hidden md:table-cell">
-                <translate>Doned</translate> <relative-time :datetime="task.doneDate" tense="past" precision="day"/>
-              </small>
-            </div>
-          </td>
+          <span
+          class="absolute bottom-0 left-0 bg-green-600 rounded-full text-xs px-0.5 -translate-x-1/4 translate-y-1/4"
+          v-if="task.shared && task.owner"
+          :title="$gettext('Shared')">
+            <i v-if="task.shared && task.owner" class="bi bi-people-fill"></i>
+          </span>
         </tr>
       </table>
     </div>
@@ -297,7 +277,6 @@
 <script>
 import 'vue-loading-overlay/dist/css/index.css'
 import Loading from 'vue-loading-overlay'
-import '@github/relative-time-element'
 import Sortable from 'sortablejs'
 import { Http } from '../http.js'
 
@@ -396,7 +375,6 @@ export default {
           let response = await Http('POST', '/api/task', {'id': task.id, 'action': 'done', '_timestamp': task._timestamp})
           if (response.ok) {
             let data = await response.json()
-            task.doneDate = data.doneDate
             task._timestamp = data._timestamp
             this.doneTasks.push(task)
             this.pendingTasks = this.pendingTasks.filter(t => t.id !== task.id)
@@ -418,7 +396,6 @@ export default {
           let response = await Http('POST', '/api/task', {'id': task.id, 'action': 'undone', '_timestamp': task._timestamp})
           if (response.ok) {
             let data = await response.json()
-            task.doneDate = data.doneDate
             task._timestamp = data._timestamp
             this.pendingTasks.unshift(task)
             this.doneTasks = this.doneTasks.filter(t => t.id !== task.id)
@@ -474,8 +451,8 @@ export default {
           let data = await response.json()
           if (!task.id) {
             task.id = data.id
-            task.createDate = new Date().toISOString().slice(0, 10)
             this.new_text = ''
+            this.setInputTaskHeight('task_input_new', 40)
             this.pendingTasks.unshift(task)
           }
           task._timestamp = data._timestamp
@@ -515,10 +492,20 @@ export default {
       }
       this.overlay = false
     },
+    setInputTaskHeight(id, size) {
+      const textarea = document.getElementById(id)
+      if (size) {
+        textarea.style.height = `${size}px`
+      } else {
+        textarea.style.height = `${textarea.scrollHeight > 40 ? textarea.scrollHeight : 40}px`
+      }
+    },
     edit(task) {
       task.editing = true
+      const setInputTaskHeight = this.setInputTaskHeight
+      const taskElementId = `task_input_${task.id}`
       window.setTimeout(function () {
-        let input = document.getElementById(`task_input_${task.id}`)
+        let input = document.getElementById(taskElementId)
         input.focus()
         // set cursor before first character of + or @ or due
         const regexes = [PROJECT_REGEX, CONTEXT_REGEX, DUE_REGEX];
@@ -532,6 +519,7 @@ export default {
           }
         }
         input.setSelectionRange(minIndex, minIndex)
+        setInputTaskHeight(taskElementId)
       }, 0)
     },
     clearDirty(task) {
@@ -551,6 +539,7 @@ export default {
         .replace(CONTEXT_REGEX, `<span class="font-bold text-green-500">$&</span>`)
         .replace(PROJECT_REGEX, `<span class="font-bold text-red-500">$&</span>`)
         .replace(DUE_REGEX, `<span class="font-bold text-blue-500">$&</span>`)
+        .replace(/\n/g, '<br>')
     },
     setFocus(id) {
       window.setTimeout(function () { document.getElementById(id).focus() }, 0)
@@ -593,7 +582,7 @@ export default {
       // add class if match
       this.pendingTasks.forEach(task => {
         let element = document.getElementById('task_done_input_' + task.id)
-        if (this.searchValue && this.searchValue.length > 3 && task.text.includes(this.searchValue)) {
+        if (this.searchValue && this.searchValue.length > 3 && task.text.toLowerCase().includes(this.searchValue.toLowerCase())) {
           element.classList.add('bg-green-600')
           element.classList.remove('bg-secondary')
         } else {
