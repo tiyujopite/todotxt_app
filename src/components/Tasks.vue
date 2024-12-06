@@ -279,11 +279,13 @@ import 'vue-loading-overlay/dist/css/index.css'
 import Loading from 'vue-loading-overlay'
 import Sortable from 'sortablejs'
 import { Http } from '../http.js'
-
-const PRIORITY_REGEX = /\((A|B|C)\)/g
-const CONTEXT_REGEX = /\@\w+/g
-const PROJECT_REGEX = /\+\w+/g
-const DUE_REGEX = /due:(\d{4}-\d{2}-\d{2})/
+import {
+  CONTEXT_REGEX,
+  DUE_REGEX,
+  PRIORITY_REGEX,
+  PROJECT_REGEX,
+  getPrettyText,
+  } from '../tools.js'
 
 export default {
   inject: [],
@@ -314,7 +316,7 @@ export default {
     fillViewAttributes(tasks) {
       tasks.forEach(task => {
         task.originalText = task.text
-        task.prettyText = this.getPrettyText(task.text)
+        task.prettyText = getPrettyText(task.text)
         task.dueDate = task.text.match(DUE_REGEX)?.[1] || ''
         task.contexts = new Set(task.text.match(CONTEXT_REGEX) || [])
         task.projects = new Set(task.text.match(PROJECT_REGEX) || [])
@@ -461,7 +463,7 @@ export default {
 
         task.dirty = false
         task.originalText = task.text
-        task.prettyText = this.getPrettyText(task.text)
+        task.prettyText = getPrettyText(task.text)
         task.editing = false
         task = this.fillViewAttributes([task])[0]
         this.fillFilters()
@@ -532,14 +534,6 @@ export default {
         task.dirty = false
         task.editing = false
       }
-    },
-    getPrettyText(text) {
-      return text
-        .replace(PRIORITY_REGEX, `<span class="font-bold text-yellow-500">$&</span>`)
-        .replace(CONTEXT_REGEX, `<span class="font-bold text-green-500">$&</span>`)
-        .replace(PROJECT_REGEX, `<span class="font-bold text-red-500">$&</span>`)
-        .replace(DUE_REGEX, `<span class="font-bold text-blue-500">$&</span>`)
-        .replace(/\n/g, '<br>')
     },
     setFocus(id) {
       window.setTimeout(function () { document.getElementById(id).focus() }, 0)
@@ -665,10 +659,8 @@ export default {
       this.loadStoredFilters()
     }
   },
-  watch: {
-  },
-  computed: {
-  },
+  watch: {},
+  computed: {},
   async created() {
     await this.loadData()
     this.fillFilters()
