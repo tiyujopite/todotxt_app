@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0 (2024-12-06)
+
+### Features/Changes
+
+- Support multi line.
+- Delete dates in tasks.
+
+### Bug Fixes
+
+- Allow search case insensitive.
+
 ## 1.1.0 (2024-11-30)
 
 ### Features/Changes
