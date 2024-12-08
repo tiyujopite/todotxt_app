@@ -21,30 +21,6 @@
   --accent-color: #3f3f3f;
   --text-primary-color: #ddd;
 }
-@media (max-width: 576px) {
-  [data-theme='dark'] #img-home{
-    background-image: url('/home-dark-s.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  [data-theme='light'] #img-home {
-    background-image: url('/home-light-s.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-}
-@media (min-width: 576px) {
-  [data-theme='dark'] #img-home{
-    background-image: url('/home-dark.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  [data-theme='light'] #img-home {
-    background-image: url('/home-light.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-}
 
 p {
   color: var(--text-primary-color);
