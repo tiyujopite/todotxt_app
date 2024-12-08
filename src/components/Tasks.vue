@@ -659,9 +659,8 @@ export default {
       this.loadStoredFilters()
     }
   },
-  watch: {},
-  computed: {},
-  async created() {
+  async mounted () {
+    this.enableShortcuts()
     await this.loadData()
     this.fillFilters()
     this.loadStoredFilters()
@@ -677,9 +676,6 @@ export default {
       })
     this.sortableOriginalOrder = sortable.toArray()
     this.sortable = sortable
-  },
-  mounted () {
-    this.enableShortcuts()
   },
   beforeUnmount() {
     this.disableShortcuts()
